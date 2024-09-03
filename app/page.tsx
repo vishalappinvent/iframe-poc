@@ -1,8 +1,16 @@
 "use client"
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
+  const [capturedColour,setColour]=useState('')
+  useEffect(()=>{
+    window.addEventListener("message", (event)=>{
+      const data=JSON.parse(event.data)
+      console.log('event from iframe',data);
+      setColour(data?.backgroundColor)
+     });
+  },[])
   const frame = useRef < HTMLIFrameElement>(null);
   const changeColor=()=>{
     const hex =
@@ -16,8 +24,9 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <iframe ref={frame} src="https://iframe-theme.vercel.app"></iframe>
+      <iframe ref={frame} src="https://iframe-theme.vercel.app/"></iframe>
       <button onClick={changeColor}>Change Color</button>
+      <>Captured colour is {capturedColour}</>
     </main>
   );
 }
