@@ -18,13 +18,13 @@ export default function Home() {
     if (frame.current && frame.current.contentWindow) {
       frame.current.contentWindow.postMessage(
         { color: hex },
-        "http://localhost:3001"
+        "https://iframe-theme.vercel.app/"
       );
     }
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <iframe ref={frame} src="http://localhost:3001"></iframe>
+      <iframe ref={frame} src="https://iframe-theme.vercel.app/"></iframe>
       <button onClick={changeColor}>Change Color</button>
       <>Captured colour is {capturedColour}</>
     </main>
